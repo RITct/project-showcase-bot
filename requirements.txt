@@ -1,0 +1,17 @@
+aiohttp==3.7.4.post0
+astroid==2.5.6
+async-timeout==3.0.1
+attrs==21.2.0
+chardet==4.0.0
+discord==1.0.1
+discord.py==1.7.2
+idna==3.1
+isort==5.8.0
+lazy-object-proxy==1.6.0
+mccabe==0.6.1
+multidict==5.1.0
+pylint==2.8.2
+toml==0.10.2
+typing-extensions==3.10.0.0
+wrapt==1.12.1
+yarl==1.6.3
