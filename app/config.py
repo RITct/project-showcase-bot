@@ -13,6 +13,8 @@ SOURCE_GUILD_ID = os.environ.get("SOURCE_GUILD_ID")
 
 TARGET_GUILD_ID = os.environ["TARGET_GUILD_ID"]
 
+PORT = os.environ.get("PORT", 8000)
+
 DEBUG = os.environ.get("DEBUG", "false") != "false"
 
 # Set your target emoji here
