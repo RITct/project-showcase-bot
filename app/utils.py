@@ -31,7 +31,7 @@ def create_showcase_message(owner: str, repo: str) -> str:
     Create the discord message using repo parameters
     """
     repo_data = get_repo_data(owner, repo)
-    msg = ""
+    msg = repo_data["name"] + "\n"
     if repo_data["description"]:
         msg += repo_data["description"] + "\n\n"
     if repo_data["homepage"]:

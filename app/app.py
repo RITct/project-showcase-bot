@@ -8,7 +8,7 @@ from discord.ext.commands import has_permissions
 from app.config import BOT_TOKEN, TARGET_EMOJI, TARGET_GUILD_ID, SOURCE_GUILD_ID, PORT
 from app.db_crud import get_project_by_github_data, create_project
 from app.utils import get_owner_and_repo, get_github_path, create_showcase_message
-
+import aiohttp.web_request
 client = discord.Client()
 
 
@@ -44,7 +44,7 @@ async def webhook_route(request):
     :param request: -> aiohttp.web_request.Request
     :return: aiohttp.web_response.Response
     """
-    logging.debug(await request.json())
+    logging.debug(await request.text())
     return web.json_response({"message": "Hello"}, status=200, content_type='application/json')
 
 bot_task = client.loop.create_task(client.start(BOT_TOKEN))
