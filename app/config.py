@@ -9,19 +9,33 @@ load_dotenv()
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 
-SOURCE_GUILD_ID = os.environ.get("SOURCE_GUILD_ID")
+SOURCE_CHANNEL_ID = os.environ.get("SOURCE_CHANNEL_ID")
 
-TARGET_GUILD_ID = os.environ["TARGET_GUILD_ID"]
+TARGET_CHANNEL_ID = os.environ["TARGET_CHANNEL_ID"]
+
+PORT = os.environ.get("PORT", 8000)
 
 DEBUG = os.environ.get("DEBUG", "false") != "false"
+
+DATABASE_URL = os.environ["DATABASE_URL"]
+
+HOST = os.environ.get("HOST", "DUMMY")
 
 # Set your target emoji here
 TARGET_EMOJI = b"\\U0001f929"
 
-if not DEBUG and SOURCE_GUILD_ID is None:
-    logging.warning("Its recommended that you provide a Source Guild ID")
+STAR_EMOJI = ":star2:"
+
+ISSUE_EMOJI = ":rotating_light:"
+
+FORK_EMOJI = ":alien:"
 
 if DEBUG:
     logging.basicConfig(level=logging.DEBUG)
 else:
     logging.basicConfig(level=logging.INFO)
+
+    if SOURCE_CHANNEL_ID is None:
+        logging.warning("Its recommended that you provide a Source Guild ID")
+    if HOST:
+        logging.warning("HOST is empty")
