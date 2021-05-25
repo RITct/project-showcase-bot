@@ -6,7 +6,7 @@ import logging
 import re
 from urllib import request
 
-from app.config import STAR_EMOJI, ISSUE_EMOJI, FORK_EMOJI
+from app.config import STAR_EMOJI, ISSUE_EMOJI, FORK_EMOJI, HOST
 
 
 def get_owner_and_repo(message: str) -> str:
@@ -50,3 +50,21 @@ def create_showcase_message(repo_data: dict) -> str:
 def get_github_path(owner: str, repo: str) -> str:
     """Get github path from owner and repo name"""
     return "%s/%s" % (owner, repo)
+
+
+async def dm_user_webhook_info(user) -> None:
+    """
+    :param client: DiscordClient instance
+    :param user: UserId
+    Send a dm to the user, to integrate webhooks
+    """
+    msg = """
+Congrats on getting your project showcased....
+If you want to update us about the wonderful journey of your project,
+Add this webhook %s
+to your repo with with issues, stars, forks, pull requests events.
+If you have more queries about webhook, visit https://docs.github.com/en/developers/webhooks-and-events/webhooks.
+
+**I'm a bot, don't reply** 
+    """ % HOST
+    await user.send(msg)

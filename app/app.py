@@ -8,7 +8,7 @@ from aiohttp import web
 from discord.ext.commands import has_permissions
 from app.config import BOT_TOKEN, TARGET_EMOJI, TARGET_CHANNEL_ID, SOURCE_CHANNEL_ID, PORT
 from app.db_crud import get_project_by_github_data, create_project
-from app.utils import get_owner_and_repo, get_github_path, create_showcase_message, get_repo_data
+from app.utils import get_owner_and_repo, get_github_path, create_showcase_message, get_repo_data, dm_user_webhook_info
 
 client = discord.Client()
 
@@ -32,6 +32,7 @@ async def on_reaction_add(reaction, _):
                     # Check if project is already in showcase
                     channel = client.get_channel(int(TARGET_CHANNEL_ID))
                     message = await channel.send(create_showcase_message(get_repo_data(owner, repo)))
+                    await dm_user_webhook_info(reaction.message.author)
                     create_project({
                         "message_id": message.id,
                         "github_path": get_github_path(owner, repo)}
@@ -50,12 +51,11 @@ async def webhook_route(request):
     repo_in_db = get_project_by_github_data(payload["repository"]["full_name"])
 
     msg = create_showcase_message(payload["repository"])
-    channel = client.get_channel(TARGET_CHANNEL_ID)
+    channel = client.get_channel(int(TARGET_CHANNEL_ID))
     message = await channel.fetch_message(repo_in_db["message_id"])
-    message.edit(content=msg)
+    await message.edit(content=msg)
 
     return web.json_response({"message": "Hello"}, status=200, content_type='application/json')
-
 
 bot_task = client.loop.create_task(client.start(BOT_TOKEN))
 app = web.Application()
