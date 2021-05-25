@@ -26,17 +26,16 @@ def get_repo_data(owner: str, repo: str) -> dict:
     return json.loads(response)
 
 
-def create_showcase_message(owner: str, repo: str) -> str:
+def create_showcase_message(repo_data: dict) -> str:
     """
     Create the discord message using repo parameters
     """
-    repo_data = get_repo_data(owner, repo)
-    msg = repo_data["name"] + "\n"
+    msg = "**%s**" % repo_data["name"] + "\n"
     if repo_data["description"]:
         msg += repo_data["description"] + "\n\n"
     if repo_data["homepage"]:
         msg += "Website: " + repo_data["homepage"] + "\n\n"
-    msg += "https://github.com/%s\n\n" % get_github_path(owner, repo)
+    msg += "Github Link: https://github.com/%s\n\n" % repo_data["full_name"]
     msg += "%s: %d\t%s: %d\t%s: %d" % (
         STAR_EMOJI,
         repo_data["stargazers_count"],

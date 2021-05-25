@@ -9,9 +9,9 @@ load_dotenv()
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 
-SOURCE_GUILD_ID = os.environ.get("SOURCE_GUILD_ID")
+SOURCE_CHANNEL_ID = os.environ.get("SOURCE_CHANNEL_ID")
 
-TARGET_GUILD_ID = os.environ["TARGET_GUILD_ID"]
+TARGET_CHANNEL_ID = os.environ["TARGET_CHANNEL_ID"]
 
 PORT = os.environ.get("PORT", 8000)
 
@@ -28,7 +28,7 @@ ISSUE_EMOJI = ":rotating_light:"
 
 FORK_EMOJI = ":alien:"
 
-if not DEBUG and SOURCE_GUILD_ID is None:
+if not DEBUG and SOURCE_CHANNEL_ID is None:
     logging.warning("Its recommended that you provide a Source Guild ID")
 
 if DEBUG:
