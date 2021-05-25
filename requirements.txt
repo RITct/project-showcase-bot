@@ -5,12 +5,14 @@ attrs==21.2.0
 chardet==4.0.0
 discord==1.0.1
 discord.py==1.7.2
+dnspython==2.1.0
 idna==3.1
 isort==5.8.0
 lazy-object-proxy==1.6.0
 mccabe==0.6.1
 multidict==5.1.0
 pylint==2.8.2
+pymongo==3.11.4
 python-dotenv==0.17.1
 toml==0.10.2
 typing-extensions==3.10.0.0
