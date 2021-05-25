@@ -54,7 +54,6 @@ def get_github_path(owner: str, repo: str) -> str:
 
 async def dm_user_webhook_info(user) -> None:
     """
-    :param client: DiscordClient instance
     :param user: UserId
     Send a dm to the user, to integrate webhooks
     """
