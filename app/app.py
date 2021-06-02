@@ -3,9 +3,11 @@ Root file
 """
 import json
 import logging
-import discord
+import re
+
 from aiohttp import web
 from discord.ext.commands import has_permissions
+from discord.ext import commands
 from app.config import BOT_TOKEN, TARGET_EMOJI, TARGET_CHANNEL_ID, SOURCE_CHANNEL_ID, PORT
 from app.db_crud import get_project_by_github_data, create_project
 from app.utils import (
@@ -16,13 +18,24 @@ from app.utils import (
     get_repo_data
 )
 
-client = discord.Client()
+client = commands.Bot(command_prefix="$")
 
 
 @client.event
 async def on_ready():
     """On Login"""
     logging.info("Logged in as %s", client.user)
+
+
+@client.command()
+async def set_target_channel(ctx, arg):
+    channel_id = re.findall("<#(.+?)>", arg).pop()
+    channel = await client.fetch_channel(int(channel_id))
+    if channel is None:
+        await ctx.send("Invalid channel")
+    else:
+        # TODO set channel to db
+        await ctx.send("Target channel set to <#%s>" % channel_id)
 
 
 @client.event
