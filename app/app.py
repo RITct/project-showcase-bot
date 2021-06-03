@@ -126,7 +126,14 @@ async def webhook_route(request):
 
     return web.json_response({"message": "Hello"}, status=200, content_type='application/json')
 
+
+async def landing_page(_):
+    """Landing Page"""
+    return web.FileResponse("./public/index.html")
+
 bot_task = client.loop.create_task(client.start(BOT_TOKEN))
 app = web.Application()
 app.router.add_post('/', webhook_route)
+app.router.add_get('/', landing_page)
+app.router.add_static("/static", "./public/static")
 web.run_app(app, port=PORT)
