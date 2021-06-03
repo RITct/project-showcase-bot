@@ -3,20 +3,32 @@ Root file
 """
 import json
 import logging
-import discord
+import re
 from aiohttp import web
+from discord import Intents
+from discord.ext import commands
 from discord.ext.commands import has_permissions
-from app.config import BOT_TOKEN, TARGET_EMOJI, TARGET_CHANNEL_ID, SOURCE_CHANNEL_ID, PORT
-from app.db_crud import get_project_by_github_data, create_project
+from app.config import BOT_TOKEN, PORT
+from app.db_crud import (
+    create_project,
+    create_server,
+    update_server_data,
+    get_server_by_id,
+    get_projects_by_github_data
+)
 from app.utils import (
     get_owner_and_repo,
     get_github_path,
     create_showcase_message,
     dm_user_webhook_info,
-    get_repo_data
+    get_repo_data,
+    is_project_in_server, get_emoji_code, send_target_channel_missing_error
 )
 
-client = discord.Client()
+intents = Intents.default()
+intents.presences = True
+intents.reactions = True
+client = commands.Bot(command_prefix="$", intents=intents)
 
 
 @client.event
@@ -26,44 +38,91 @@ async def on_ready():
 
 
 @client.event
+async def on_guild_join(guild):
+    """Join Event"""
+    create_server(guild.id)
+
+
+@client.command()
+async def set_target_channel(ctx, arg):
+    """
+    Set Target Channel Discord Command
+    """
+    channel_id = int(re.findall("<#(.+?)>", arg).pop())
+    channel = await client.fetch_channel(channel_id)
+    if channel is None:
+        await ctx.send("Invalid channel")
+    else:
+        update_server_data(ctx.guild.id, {"targetChannel": channel_id})
+        await ctx.send("Target channel set to <#%s>" % channel_id)
+
+
+@client.command()
+async def help_showcase(ctx):
+    """Help command - Display all available commands and usage"""
+    await ctx.send("""
+$set_target_channel <LINK_TO_CHANNEL> : Set your project showcase channel\n
+After this step, admins can react with <TARGET_EMOJI> to add project to showcase""")
+
+
+@client.event
 @has_permissions(administrator=True)
-async def on_reaction_add(reaction, _):
+async def on_raw_reaction_add(reaction):
     """on reaction event"""
     logging.debug("Event")
-    if SOURCE_CHANNEL_ID is None or reaction.message.channel.id == int(SOURCE_CHANNEL_ID):
-        if TARGET_EMOJI == reaction.emoji.encode("unicode-escape"):
-            try:
-                owner, repo = get_owner_and_repo(reaction.message.content)
-                if not get_project_by_github_data(get_github_path(owner, repo)):
-                    # Check if project is already in showcase
-                    channel = client.get_channel(int(TARGET_CHANNEL_ID))
-                    message = await channel.send(
-                        create_showcase_message(
-                            get_repo_data(owner, repo)
-                        )
-                    )
-                    await dm_user_webhook_info(reaction.message.author)
-                    create_project({
-                        "message_id": message.id,
-                        "github_path": get_github_path(owner, repo)}
-                    )
-            except (IndexError, ValueError):
-                logging.debug("Not a github url")
+
+    this_channel = await client.fetch_channel(reaction.channel_id)
+    message = await this_channel.fetch_message(reaction.message_id)
+
+    try:
+        owner, repo = get_owner_and_repo(message.content)
+    except (IndexError, ValueError):
+        logging.debug("Not a github url")
+        return
+
+    server_info = get_server_by_id(this_channel.guild.id)
+    logging.debug(ord(str(reaction.emoji)))
+    if server_info["targetEmoji"] == get_emoji_code(reaction.emoji):
+
+        github_path = get_github_path(owner, repo)
+
+        if not is_project_in_server(server=server_info, github_path=github_path):
+            # Check if project is already in showcase
+            if not server_info.get("targetChannel"):
+                await send_target_channel_missing_error(this_channel)
+            target_channel = client.get_channel(server_info["targetChannel"])
+            target_message = await target_channel.send(
+                create_showcase_message(
+                    get_repo_data(owner, repo)
+                )
+            )
+            await dm_user_webhook_info(message.author)
+            create_project({
+                "serverId": server_info["serverId"],
+                "messageId": target_message.id,
+                "githubPath": github_path
+            })
 
 
 async def webhook_route(request):
     """
-    :param request: -> aiohttp.web_request.Request
+    :param request: aiohttp.web_request.Request
     :return: aiohttp.web_response.Response
     """
     data = await request.post()
     payload = json.loads(data["payload"])
-    repo_in_db = get_project_by_github_data(payload["repository"]["full_name"])
+    servers_containing_project = \
+        get_projects_by_github_data(payload["repository"]["full_name"])
 
     msg = create_showcase_message(payload["repository"])
-    channel = client.get_channel(int(TARGET_CHANNEL_ID))
-    message = await channel.fetch_message(repo_in_db["message_id"])
-    await message.edit(content=msg)
+
+    for server in servers_containing_project:
+        channel = client.get_channel(server["targetChannel"])
+        project_in_server = [project for project in server.get("projects")
+                             if project["githubPath"] == payload["repository"]["full_name"]][0]
+
+        message = await channel.fetch_message(project_in_server["messageId"])
+        await message.edit(content=msg)
 
     return web.json_response({"message": "Hello"}, status=200, content_type='application/json')
 
