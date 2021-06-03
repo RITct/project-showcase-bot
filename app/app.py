@@ -9,14 +9,20 @@ from discord import Intents
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 from app.config import BOT_TOKEN, PORT
-from app.db_crud import create_project, create_server, update_server_data, get_server_by_id, get_projects_by_github_data
+from app.db_crud import (
+    create_project,
+    create_server,
+    update_server_data,
+    get_server_by_id,
+    get_projects_by_github_data
+)
 from app.utils import (
     get_owner_and_repo,
     get_github_path,
     create_showcase_message,
     dm_user_webhook_info,
     get_repo_data,
-    is_project_in_server, get_emoji_code
+    is_project_in_server, get_emoji_code, send_target_channel_missing_error
 )
 
 intents = Intents.default()
@@ -33,7 +39,7 @@ async def on_ready():
 
 @client.event
 async def on_guild_join(guild):
-    logging.debug("JOIN TRIGGERED")
+    """Join Event"""
     create_server(guild.id)
 
 
@@ -75,9 +81,7 @@ async def on_raw_reaction_add(reaction):
         if not is_project_in_server(server=server_info, github_path=github_path):
             # Check if project is already in showcase
             if not server_info.get("targetChannel"):
-                await this_channel.send(
-                    "Target channel is not configured, use $set_target_channel <channel_link> to set channel"
-                )
+                await send_target_channel_missing_error(this_channel)
             target_channel = client.get_channel(server_info["targetChannel"])
             target_message = await target_channel.send(
                 create_showcase_message(
@@ -105,9 +109,9 @@ async def webhook_route(request):
     msg = create_showcase_message(payload["repository"])
 
     for server in servers_containing_project:
-        channel = client.get_channel(int(server["targetChannel"]))
-        project_in_server = [project for project in server.get("projects") if project["githubPath"] ==
-                             payload["repository"]["full_name"]][0]
+        channel = client.get_channel(server["targetChannel"])
+        project_in_server = [project for project in server.get("projects")
+                             if project["githubPath"] == payload["repository"]["full_name"]][0]
 
         message = await channel.fetch_message(project_in_server["messageId"])
         await message.edit(content=msg)

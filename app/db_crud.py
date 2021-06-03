@@ -2,7 +2,6 @@
 Handle DB
 """
 from typing import List
-
 import pymongo
 from .config import DATABASE_URL, DEFAULT_TARGET_EMOJI
 
@@ -58,7 +57,7 @@ def get_projects_by_github_data(github_path: str) -> List[dict]:
     :param github_path: Path of the github repo eg: RITct/project-discord-bot
     :return: List[Server]
     """
-    return server_collection.find({"projects": {"github_path": github_path}})
+    return server_collection.find({"projects.githubPath": github_path})
 
 
 def update_server_data(server_id: int, updated_data: dict) -> None:

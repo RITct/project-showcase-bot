@@ -54,7 +54,8 @@ def get_github_path(owner: str, repo: str) -> str:
 
 def is_project_in_server(server: dict, github_path: str) -> bool:
     """Check if project is in server"""
-    return any([project.get("github_path") == github_path for project in server.get("projects", {})])
+    return any(
+        [project.get("github_path") == github_path for project in server.get("projects", {})])
 
 
 def get_emoji_code(raw_emoji: str):
@@ -63,6 +64,13 @@ def get_emoji_code(raw_emoji: str):
     :return: ascii code of emoji
     """
     return ord(str(raw_emoji))
+
+
+async def send_target_channel_missing_error(channel):
+    """ Send Target Channel Not Set Error Message """
+    await channel.send(
+        "Target channel is not configured, use $set_target_channel <channel_link> to set channel"
+    )
 
 
 async def dm_user_webhook_info(user) -> None:
