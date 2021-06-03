@@ -98,7 +98,7 @@ async def on_raw_reaction_add(reaction):
 
 async def webhook_route(request):
     """
-    :param request: -> aiohttp.web_request.Request
+    :param request: aiohttp.web_request.Request
     :return: aiohttp.web_response.Response
     """
     data = await request.post()

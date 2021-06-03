@@ -1,7 +1,6 @@
 """
 Handle DB
 """
-from typing import List
 import pymongo
 from .config import DATABASE_URL, DEFAULT_TARGET_EMOJI
 
@@ -26,10 +25,10 @@ def create_project(data: dict) -> bool:
     return results.get("matched_count", 0) > 0
 
 
-def get_server_by_id(server_id: int) -> dict:
+def get_server_by_id(server_id: int):
     """
     :param server_id: Discord Server's unique ID
-    :return: {
+    :return: <DBCollection>{
         "serverId": int,
         "targetChannel": str,
         "targetEmoji": str,
@@ -52,7 +51,7 @@ def create_server(server_id: int) -> None:
         })
 
 
-def get_projects_by_github_data(github_path: str) -> List[dict]:
+def get_projects_by_github_data(github_path: str):
     """
     :param github_path: Path of the github repo eg: RITct/project-discord-bot
     :return: List[Server]
