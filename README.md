@@ -15,8 +15,9 @@ If the owner of the repo adds a webhook to this bot, all these stats would be up
 
 ### Usage
 
-1. Set your environment variables(refer example env file).
-2. Configure your emojis in `app/config.py`.
-3. Add bot to your server.
-4. Ensure bot has write access to your project showcase channel.
+1. Add this bot via this [link](https://discord.com/api/oauth2/authorize?client_id=846073659293433856&permissions=67584&scope=bot)
+2. Set your project showcase channel with `$set_target_channel <LINK_TO_CHANNEL>` command.
+3. Ensure bot has write access to your project showcase channel.
+4. Admins can now react with :star_struck: to a github link to add it to showcase channel
+5. Owner of the repo can integrate a github webhook if they want to receive live changes in discord server. 
  
