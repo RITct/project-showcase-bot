@@ -12,7 +12,7 @@ from app.config import STAR_EMOJI, ISSUE_EMOJI, FORK_EMOJI, HOST
 def get_owner_and_repo(message: str) -> str:
     """Get owner and repo name from url"""
     logging.debug(message)
-    return re.findall("^https://github\\.com/(.+?)/(.+)", message)[0]
+    return re.findall("https://github\\.com/(.+?)/(.+)", message)[0]
 
 
 def get_repo_data(owner: str, repo: str) -> dict:
