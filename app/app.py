@@ -57,6 +57,14 @@ async def set_target_channel(ctx, arg):
         await ctx.send("Target channel set to <#%s>" % channel_id)
 
 
+@client.command()
+async def help_showcase(ctx):
+    """Help command - Display all available commands and usage"""
+    await ctx.send("""
+$set_target_channel <LINK_TO_CHANNEL> : Set your project showcase channel\n
+After this step, admins can react with <TARGET_EMOJI> to add project to showcase""")
+
+
 @client.event
 @has_permissions(administrator=True)
 async def on_raw_reaction_add(reaction):
