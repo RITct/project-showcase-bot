@@ -131,7 +131,8 @@ async def landing_page(_):
     """Landing Page"""
     return web.FileResponse("./public/index.html")
 
-bot_task = client.loop.create_task(client.start(BOT_TOKEN))
+if BOT_TOKEN:
+    bot_task = client.loop.create_task(client.start(BOT_TOKEN))
 app = web.Application()
 app.router.add_post('/', webhook_route)
 app.router.add_get('/', landing_page)
