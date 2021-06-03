@@ -118,6 +118,10 @@ async def webhook_route(request):
 
     for server in servers_containing_project:
         channel = client.get_channel(server["targetChannel"])
+        if not channel:
+            logging.warning("Channel %d not found at Guild %d",
+                            server["targetChannel"], server["serverId"])
+            continue
         project_in_server = [project for project in server.get("projects")
                              if project["githubPath"] == payload["repository"]["full_name"]][0]
 
