@@ -56,7 +56,7 @@ def is_project_in_server(server: dict, github_path: str) -> bool:
     """Check if project is in server"""
     # pylint: disable=use-a-generator
     return any(
-        [project.get("github_path") == github_path for project in server.get("projects", {})])
+        [project.get("githubPath") == github_path for project in server.get("projects", {})])
 
 
 def get_emoji_code(raw_emoji: str):
