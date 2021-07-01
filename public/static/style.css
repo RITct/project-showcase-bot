@@ -1,1 +1,403 @@
-<!-- Add CSS here -->
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #222121;
+  color: aliceblue;
+}
+
+.navbar {
+  overflow: hidden;
+  padding: 1vh 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #3994ff;
+  text-align: center;
+  padding: 5px 16px;
+  margin: 5px;
+  text-decoration: none;
+  font: 1.2rem sans-serif;
+  border: 1px solid #222121;
+  border-radius: 15px;
+}
+
+.navbar a:hover {
+  background-color: #363434;
+  color: #3994ff;
+}
+
+.navbar a.active {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.navbar a.active:hover {
+  background-color: #222121;
+}
+
+.navbar .icon {
+  display: none;
+}
+
+.home {
+  padding: 0% 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: aliceblue;
+  height: 93vh;
+}
+
+.home h1 {
+  font-size: 2.5rem;
+}
+
+.home p {
+  color: #909090;
+}
+
+.heading {
+  padding-right: 5%;
+}
+
+#add-btn {
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #3994ff;
+  color: aliceblue;
+  border: none;
+  font-size: 1rem;
+}
+
+#add-btn:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  background-color: #6cb2f8;
+}
+
+.btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#github-btn {
+  padding-left: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#github-btn img {
+  height: 3.3rem;
+  border-radius: 190px;
+  -webkit-transition: -webkit-box-shadow 0.2s;
+  transition: -webkit-box-shadow 0.2s;
+  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, -webkit-box-shadow 0.2s;
+}
+
+#github-btn img:hover {
+  border: 0px solid #222121;
+  -webkit-box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+          box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+}
+
+#about {
+  background-color: #2a2929;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0% 10%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#about h2 {
+  color: aliceblue;
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+#about p {
+  font-size: 1.2rem;
+  color: #909090;
+  text-align: center;
+}
+
+.usage {
+  padding: 0% 10%;
+}
+
+.usage ul {
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  color: aliceblue;
+}
+
+.usage li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 10vh;
+  font-size: 1.2rem;
+}
+
+.usage li img {
+  margin: 5%;
+  border: 1px solid #222121;
+  border-radius: 15px;
+}
+
+#how-to {
+  padding: 0% 10%;
+  margin-top: 10vh;
+  background-color: #2a2929;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#how-to h2 {
+  font-size: 2rem;
+}
+
+#how-to ol {
+  font-size: 1.2rem;
+  list-style: none;
+  counter-reset: steps;
+}
+
+#how-to ol li {
+  padding-bottom: 5vh;
+  counter-increment: steps;
+}
+
+#how-to ol li a {
+  text-decoration: none;
+}
+
+#how-to ol li::before {
+  content: counter(steps);
+  margin-right: 0.5rem;
+  background: #3994ff;
+  color: white;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  display: -ms-inline-grid;
+  display: inline-grid;
+  place-items: center;
+  line-height: 1.2em;
+}
+
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: black;
+  padding: 0% 10%;
+}
+
+.footer h2 {
+  color: #3994ff;
+  font-size: 2rem;
+}
+
+.footer .contact {
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #909090;
+}
+
+.footer a:hover {
+  color: aliceblue;
+}
+
+@media screen and (max-width: 1200px) {
+  .footer .contact {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .usage li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 1.2rem;
+    text-align: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .usage li img {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+  .usage li:first-child {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .nav-list a {
+    /* transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden; */
+    display: none;
+  }
+  .nav-list a.icon {
+    float: right;
+    display: block;
+  }
+  .home #robot {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .navbar.responsive {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    border-bottom: 1px solid aliceblue;
+    -webkit-transition: display 0.5s;
+    transition: display 0.5s;
+  }
+  /* .nav-head {
+    padding: 3vh 20%;
+  } */
+  .navbar.responsive .icon {
+    position: absolute;
+    right: 5%;
+    top: 1vh;
+  }
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    /* opacity: 1;
+    height: auto; */
+    text-align: left;
+  }
+  .responsive .nav-list {
+    width: 100%;
+  }
+  .responsive .nav-list a {
+    margin-left: 20px;
+  }
+  .home.blur {
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
+  }
+  /*  #how-to {
+    ol {
+       padding-left: 0;
+    }
+  } */
+  .usage li {
+    text-align: center;
+  }
+  .footer .contact {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+/*# sourceMappingURL=style.css.map */

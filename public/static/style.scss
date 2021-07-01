@@ -1,0 +1,291 @@
+$nav-font-color: rgb(57, 148, 255);
+$nav-bg-color: rgb(34, 33, 33);
+$bg-light: rgb(42, 41, 41);
+$content-text-color: rgb(144, 144, 144);
+$side-padding: 0% 10%;
+$subheading-size: 2rem;
+$content-font-size: 1.2rem;
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: $nav-bg-color;
+  color: aliceblue;
+}
+
+@mixin local-centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flex-align($justify, $align) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+.navbar {
+  overflow: hidden;
+  padding: 1vh 5%;
+  @include flex-align(space-between, center);
+  a {
+    float: left;
+    display: block;
+    color: $nav-font-color;
+    text-align: center;
+    padding: 5px 16px;
+    margin: 5px;
+    text-decoration: none;
+    font: 1.2rem sans-serif;
+    border: 1px solid $nav-bg-color;
+    border-radius: 15px;
+  }
+  a:hover {
+    background-color: rgb(54, 52, 52);
+    color: $nav-font-color;
+  }
+  a.active {
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+  a.active:hover {
+    background-color: $nav-bg-color;
+  }
+  .icon {
+    display: none;
+  }
+}
+.home {
+  padding: $side-padding;
+  @include local-centering();
+  color: aliceblue;
+  height: 93vh;
+  h1 {
+    font-size: 2.5rem;
+  }
+  p {
+    color: $content-text-color;
+  }
+}
+.heading {
+  padding-right: 5%;
+}
+
+#add-btn {
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: $nav-font-color;
+  color: aliceblue;
+  border: none;
+  font-size: 1rem;
+}
+#add-btn:hover {
+  transition: 0.2s;
+  background-color: rgb(108, 178, 248);
+}
+.btns {
+  display: flex;
+  align-items: center;
+}
+#github-btn {
+  padding-left: 5%;
+  display: flex;
+  align-items: center;
+  img {
+    height: 3.3rem;
+    border-radius: 190px;
+    transition: box-shadow 0.2s;
+  }
+  img:hover {
+    border: 0px solid $nav-bg-color;
+
+    box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+  }
+}
+#about {
+  background-color: rgb(42, 41, 41);
+  @include local-centering();
+  padding: $side-padding;
+  flex-direction: column;
+  h2 {
+    color: aliceblue;
+    font-size: $subheading-size;
+    margin-bottom: 0;
+  }
+  p {
+    font-size: $content-font-size;
+    color: $content-text-color;
+    text-align: center;
+  }
+}
+.usage {
+  padding: $side-padding;
+  ul {
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    color: aliceblue;
+  }
+  li {
+    @include local-centering();
+    padding-top: 10vh;
+    font-size: $content-font-size;
+    img {
+      margin: 5%;
+      border: 1px solid $nav-bg-color;
+      border-radius: 15px;
+    }
+  }
+}
+#how-to {
+  padding: $side-padding;
+  margin-top: 10vh;
+  background-color: $bg-light;
+  @include local-centering();
+  flex-direction: column;
+  h2 {
+    font-size: $subheading-size;
+  }
+  ol {
+    font-size: $content-font-size;
+    list-style: none;
+    counter-reset: steps;
+    li {
+      padding-bottom: 5vh;
+      counter-increment: steps;
+      a {
+        text-decoration: none;
+      }
+    }
+    li::before {
+      content: counter(steps);
+      margin-right: 0.5rem;
+      background: $nav-font-color;
+      color: white;
+      width: 1.2em;
+      height: 1.2em;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      line-height: 1.2em;
+    }
+  }
+}
+.footer {
+  @include local-centering();
+  flex-direction: column;
+  background-color: rgb(0, 0, 0);
+  padding: $side-padding;
+
+  h2 {
+    color: $nav-font-color;
+    font-size: 2rem;
+  }
+  .contact {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+  }
+  a {
+    text-decoration: none;
+    color: $content-text-color;
+  }
+  a:hover {
+    color: aliceblue;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .footer {
+    .contact {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .usage {
+    li {
+      @include local-centering();
+      font-size: 1.2rem;
+      text-align: center;
+      flex-direction: column;
+      img {
+        width: 100%;
+        margin: 0 0 15px 0;
+      }
+    }
+    li:first-child {
+      flex-direction: column-reverse;
+    }
+  }
+}
+@media screen and (max-width: 650px) {
+  .nav-list a {
+    /* transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden; */
+    display: none;
+  }
+  .nav-list a.icon {
+    float: right;
+    display: block;
+  }
+  .home {
+    #robot {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .navbar.responsive {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid aliceblue;
+    transition: display 0.5s;
+  }
+  /* .nav-head {
+    padding: 3vh 20%;
+  } */
+  .navbar.responsive .icon {
+    position: absolute;
+    right: 5%;
+    top: 1vh;
+  }
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    /* opacity: 1;
+    height: auto; */
+    text-align: left;
+  }
+  .responsive .nav-list {
+    width: 100%;
+    a {
+      margin-left: 20px;
+    }
+  }
+  .home.blur {
+    filter: blur(4px);
+  }
+  /*  #how-to {
+    ol {
+       padding-left: 0;
+    }
+  } */
+  .usage {
+    li {
+      text-align: center;
+    }
+  }
+  .footer {
+    .contact {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

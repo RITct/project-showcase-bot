@@ -1,2 +1,134 @@
-<h1>Work In Progress</h1>
-<!-- Add html here -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="./static/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Project showcase bot</title>
+  </head>
+  <body>
+    <div class="navbar" id="nav">
+      <span class="nav-head"><a href="#" class="active">Showcase Bot</a></span>
+      <span class="nav-list">
+        <a href="#about"> About</a>
+        <a href="#features"> Features</a>
+        <a href="#how-to"> How to</a>
+        <a href="javascript:void(0);" class="icon" onclick="navDropdown()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </span>
+    </div>
+    <div class="container">
+      <div class="home" id="home">
+        <div class="heading">
+          <h1>Showcase your amazing projects on discord servers.</h1>
+          <p>
+            Showcase projects in Github to your discord server just by reacting
+            to it!
+          </p>
+          <div class="btns">
+            <a
+              href="https://discord.com/api/oauth2/authorize?client_id=846073659293433856&permissions=67584&scope=bot"
+              id="add-btn"
+              >Add to Discord</a
+            >
+            <a
+              href="https://github.com/RITct/project-showcase-bot"
+              id="github-btn"
+              ><img
+                src="./static/images/GitHub-Mark-Light-64px.png"
+                alt="github"
+            /></a>
+          </div>
+        </div>
+        <img
+          id="robot"
+          src="./static/images/bot5.png"
+          alt="bot vector"
+          width="50%"
+        />
+      </div>
+      <div id="about">
+        <h2>About</h2>
+        <p>
+          This bot aids in creating a showcase channel for your discord
+          server.<br /><br />
+          Users can show off their project hosted on Github to a dedicated
+          channel on discord servers where it can be appreciated by others!
+        </p>
+
+        <!-- <h2>What does this bot do?</h2>
+        -->
+      </div>
+      <div id="features" class="usage">
+        <ul>
+          <li>
+            Server admins could react with a preconfigured emoji to github links
+            to add them to the showcase channel.
+            <img src="./static/images/demo1.png" alt="step 1" width="45%" />
+          </li>
+          <li>
+            <img src="./static/images/dem2.png" alt="step 2" width="45%" />
+            Then the bot add this github link along with description, title,
+            issues, stars and forks to a showcase channel.
+          </li>
+        </ul>
+      </div>
+      <div id="how-to">
+        <h2>How to use</h2>
+        <ol>
+          <li>
+            Add this bot via this
+            <a
+              href="https://discord.com/api/oauth2/authorize?client_id=846073659293433856&permissions=67584&scope=bot"
+              >link</a
+            >
+          </li>
+          <li>
+            Set your project showcase channel with
+            <code style="background-color: rgb(77, 75, 75)"
+              >$set_target_channel &lt;LINK_TO_CHANNEL&gt;</code
+            >
+            command.
+          </li>
+          <li>Ensure bot has write access to your project showcase channel.</li>
+          <li>
+            Admins can now react with 🤩 to a github link to add it to showcase
+            channel
+          </li>
+          <li>
+            Owner of the repo can integrate a github webhook if they want to
+            receive live changes in discord server.
+          </li>
+        </ol>
+      </div>
+      <div class="footer">
+        <h2>Showcase Bot</h2>
+
+        <span class="contact"
+          ><a href="https://github.com/RITct"> Contact Developers </a>
+          <a href="https://github.com/RITct/project-showcase-bot"> Github</a>
+          <a href="https://github.com/RITct/project-showcase-bot/issues"
+            >Contribute to the project</a
+          ></span
+        >
+        <br />
+        <a href="http://www.freepik.com"
+          >Vector designed by pch.vector / Freepik</a
+        >
+        <p>© 2021 RITct</p>
+      </div>
+    </div>
+    <script src="static/script.js"></script>
+  </body>
+</html>
